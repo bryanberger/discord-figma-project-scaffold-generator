@@ -1,4 +1,4 @@
-import {PAGES} from '../app/constants'
+import {PAGES} from '../constants'
 
 figma.showUI(__html__, {width: 300, height: 380})
 
@@ -35,8 +35,8 @@ const createPages = async (msg: any) => {
       }
     })
 
-    figma.notify(`[${numKeys}] Page${numKeys > 1 ? 's' : ''} created!`)
+    figma.notify(`[${numKeys}] Page${numKeys > 1 ? 's' : ''} generated!`)
   } else {
-    figma.notify('No pages created...Select at least one from the list.')
+    figma.notify('No pages generated...Select at least one from the list.')
   }
 }

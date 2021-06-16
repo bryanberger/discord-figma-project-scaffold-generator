@@ -1,5 +1,5 @@
 {
-  "name": "Discord Project Scaffold 2.0",
+  "name": "Discord Project Scaffold Generator",
   "id": "987091710178953302",
   "api": "1.0.0",
   "main": "dist/code.js",

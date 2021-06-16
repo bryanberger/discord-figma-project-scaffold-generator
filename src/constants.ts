@@ -6,7 +6,7 @@ export type PAGE_DATA_TYPE = {
   pageName: string
   componentKey: string
   description: string
-  displayName?: string
+  displayPageName?: string
 }
 
 export type PAGES_TYPE = Record<string, PAGE_DATA_TYPE>
@@ -27,7 +27,7 @@ export const PAGES: PAGES_TYPE = {
     pageName: '---------------',
     componentKey: null,
     description: '',
-    displayName: 'Divider',
+    displayPageName: 'Divider',
   },
   components: {
     pageName: '⚙️ Components',

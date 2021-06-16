@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import {PAGES} from '../constants'
+import {PAGES} from '../../constants'
 
 import 'figma-plugin-ds/dist/figma-plugin-ds.css'
 import '../styles/ui.css'
@@ -46,7 +46,7 @@ const App: React.FC = ({}) => {
           checked={selectedCheckboxes.has(key)}
         />
         <label htmlFor={key} className="checkbox__label">
-          {pageData.displayName || pageData.pageName}
+          {pageData.displayPageName || pageData.pageName}
         </label>
       </div>
     )
@@ -54,22 +54,12 @@ const App: React.FC = ({}) => {
 
   const createCheckboxes = () => Object.keys(PAGES).map(createCheckbox)
 
-  //   React.useEffect(() => {
-  //     // This is how we read messages sent from the plugin controller
-  //     window.onmessage = (event) => {
-  //       const {type, message} = event.data.pluginMessage
-  //       if (type === 'create-pages') {
-  //         console.log(`Figma Says: ${message}`)
-  //       }
-  //     }
-  //   }, [])
-
   return (
     <div className="container">
       <div className="checkbox-container">{createCheckboxes()}</div>
       <div className="button-container">
         <button className="button button--primary" onClick={onCreate} disabled={selectedCheckboxes.size === 0}>
-          Create
+          Generate
         </button>
         <button className="button button--secondary" onClick={onCancel}>
           Cancel

@@ -1,7 +1,7 @@
 {
-	"name": "discord-figma-project-scaffold",
+	"name": "discord-figma-project-scaffold-generator",
 	"version": "1.0.0",
-	"description": "This plugin template uses Typescript. If you are familiar with Javascript, Typescript will look very familiar. In fact, valid Javascript code is already valid Typescript code.",
+	"description": "This plugin allows for a flexible way to create consistent file structure that is easy to digest by various stakeholders.",
 	"license": "ISC",
 	"scripts": {
 		"build": "webpack --mode=production",
