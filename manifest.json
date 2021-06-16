@@ -1,6 +1,6 @@
 {
-  "name": "Discord Figma Project Scaffold 2.0",
-  "id": "00000000",
+  "name": "Discord Project Scaffold 2.0",
+  "id": "987091710178953302",
   "api": "1.0.0",
   "main": "dist/code.js",
   "ui": "dist/ui.html"

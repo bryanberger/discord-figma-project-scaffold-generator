@@ -1,94 +1,80 @@
 import * as React from 'react'
 
+import {PAGES} from '../constants'
+
 import 'figma-plugin-ds/dist/figma-plugin-ds.css'
 import '../styles/ui.css'
 
-declare function require(path: string): any
+const App: React.FC = ({}) => {
+  const [selectedCheckboxes, setSelectedCheckboxes] = React.useState(new Set())
 
-const App = ({}) => {
-  //   const textbox = React.useRef<HTMLInputElement>(undefined)
+  const onCreate = () => {
+    // We use a `Set` to make it easier to de-dupe selected checkboxes, but postMessage expects a array/object
+    const keys = Array.from(selectedCheckboxes)
+    parent.postMessage({pluginMessage: {type: 'create-pages', keys}}, '*')
+  }
 
-  //   const countRef = React.useCallback((element: HTMLInputElement) => {
-  //     if (element) element.value = '5'
-  //     textbox.current = element
-  //   }, [])
-
-  //   const onCreate = React.useCallback(() => {
-  //     const count = parseInt(textbox.current.value, 10)
-  //     parent.postMessage({pluginMessage: {type: 'create-rectangles', count}}, '*')
-  //   }, [])
-
-  const onSubmit = React.useCallback((e) => {
-    e.preventDefault()
-    console.log(e)
-
-    parent.postMessage({pluginMessage: {type: 'create-pages', pages: {}}}, '*')
-
-    // const count = parseInt(textbox.current.value, 10)
-    // parent.postMessage({pluginMessage: {type: 'create-rectangles', count}}, '*')
-    // parent.postMessage({pluginMessage: {type: 'create-pages', pages}}, '*')
-  }, [])
-
-  const onCancel = React.useCallback(() => {
+  const onCancel = () => {
     parent.postMessage({pluginMessage: {type: 'cancel'}}, '*')
-  }, [])
+  }
 
-  React.useEffect(() => {
-    // This is how we read messages sent from the plugin controller
-    window.onmessage = (event) => {
-      const {type, message} = event.data.pluginMessage
-      if (type === 'create-rectangles') {
-        console.log(`Figma Says: ${message}`)
-      }
+  const onChange = (e: React.ChangeEvent) => {
+    const key = e.target.id
+
+    if (selectedCheckboxes.has(key)) {
+      // uncheck
+      setSelectedCheckboxes((prev) => {
+        const newState = new Set(prev)
+        newState.delete(key)
+        return newState
+      })
+    } else {
+      // check
+      setSelectedCheckboxes((prev) => new Set(prev).add(key))
     }
-  }, [])
+  }
+
+  const createCheckbox = (key: string) => {
+    const pageData = PAGES[key]
+    return (
+      <div className="checkbox" key={key} title={pageData.description}>
+        <input
+          id={key}
+          type="checkbox"
+          className="checkbox__box"
+          onChange={onChange}
+          checked={selectedCheckboxes.has(key)}
+        />
+        <label htmlFor={key} className="checkbox__label">
+          {pageData.displayName || pageData.pageName}
+        </label>
+      </div>
+    )
+  }
+
+  const createCheckboxes = () => Object.keys(PAGES).map(createCheckbox)
+
+  //   React.useEffect(() => {
+  //     // This is how we read messages sent from the plugin controller
+  //     window.onmessage = (event) => {
+  //       const {type, message} = event.data.pluginMessage
+  //       if (type === 'create-pages') {
+  //         console.log(`Figma Says: ${message}`)
+  //       }
+  //     }
+  //   }, [])
 
   return (
     <div className="container">
-      <form className="form" onSubmit={onSubmit}>
-        <div className="checkbox-container">
-          <input type="checkbox" id="brainStorming" /> Brainstorming <br />
-          <input type="checkbox" id="research" /> Research <br />
-          <input type="checkbox" id="uxInsights" /> UX Insights <br />
-          <input type="checkbox" id="uxFlows" /> UX Flows <br />
-          <input type="checkbox" id="uxWireframes" /> UX Wireframes <br />
-          <input type="checkbox" id="uiDesign" /> UI Design <br />
-          {/* <div className="checkbox">
-            <input id="contextPage" type="checkbox" className="checkbox__box" />
-            <label htmlFor="contextPage" className="checkbox__label">
-              Context
-            </label>
-          </div>
-          <div className="checkbox">
-            <input id="designsPage" type="checkbox" className="checkbox__box" />
-            <label htmlFor="designsPage" className="checkbox__label">
-              Designs
-            </label>
-          </div>
-          <div className="checkbox">
-            <input id="dividerPage" type="checkbox" className="checkbox__box" />
-            <label htmlFor="dividerPage" className="checkbox__label">
-              Divider
-            </label>
-          </div> */}
-        </div>
-        <div className="button-container">
-          <button className="button button--primary" type="submit">
-            Create
-          </button>
-          <button className="button button--secondary" onClick={onCancel}>
-            Cancel
-          </button>
-        </div>
-      </form>
-
-      {/* <p>
-        Count: <input ref={countRef} />
-      </p>
-      <button id="create" onClick={onCreate}>
-        Create
-      </button>
-      <button onClick={onCancel}>Cancel</button> */}
+      <div className="checkbox-container">{createCheckboxes()}</div>
+      <div className="button-container">
+        <button className="button button--primary" onClick={onCreate} disabled={selectedCheckboxes.size === 0}>
+          Create
+        </button>
+        <button className="button button--secondary" onClick={onCancel}>
+          Cancel
+        </button>
+      </div>
     </div>
   )
 }

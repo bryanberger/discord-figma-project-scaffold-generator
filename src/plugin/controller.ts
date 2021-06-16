@@ -1,58 +1,42 @@
-const CONTEXT_PAGE = '994c6fec62c4e66f29d84dfd908db266768008e2'
+import {PAGES} from '../app/constants'
 
-figma.showUI(__html__)
+figma.showUI(__html__, {width: 300, height: 380})
 
 figma.ui.onmessage = async (msg) => {
-  //   if (msg.type === 'create-rectangles') {
-  //     const nodes = []
-
-  //     for (let i = 0; i < msg.count; i++) {
-  //       const rect = figma.createRectangle()
-  //       rect.x = i * 150
-  //       rect.fills = [{type: 'SOLID', color: {r: 1, g: 0.5, b: 0}}]
-  //       figma.currentPage.appendChild(rect)
-  //       nodes.push(rect)
-  //     }
-
-  //     figma.currentPage.selection = nodes
-  //     figma.viewport.scrollAndZoomIntoView(nodes)
-
-  //     // This is how figma responds back to the ui
-  //     figma.ui.postMessage({
-  //       type: 'create-rectangles',
-  //       message: `Created ${msg.count} Rectangles`,
-  //     })
-  //   }
-
-  if (msg.type === 'create-pages') {
-    // find the page template/component
-    // const component = await figma.importComponentByKeyAsync(key)
-    await helper()
-    // create a page
-
-    // copy it into this project
-  }
-
-  figma.closePlugin()
+  if (msg.type === 'create-pages') createPages(msg)
+  if (msg.type === 'cancel') figma.closePlugin()
 }
 
-const helper = async () => {
-  const component = await figma.importComponentByKeyAsync(CONTEXT_PAGE)
-  const clonedComponent: InstanceNode = component.createInstance() as InstanceNode
+const createPages = async (msg: any) => {
+  const numKeys = msg.keys.length
 
-  // detach instance
-  clonedComponent.detachInstance()
+  if (numKeys > 0) {
+    msg.keys.map(async (key: string) => {
+      const pageData = PAGES[key]
 
-  // zoom full
-  figma.viewport.scrollAndZoomIntoView([clonedComponent])
+      // Create page
+      const page = figma.createPage()
+      page.name = pageData.pageName
 
-  //   clonedComponent.i
-  //   let frame = figma.createFrame()
-  //   frame.constrainProportions = false
-  //   frame.appendChild(clonedComponent)
-  //   clonedComponent.children.map(c => {
-  //     frame.appendChild(c.clone())
-  //   })
+      // Check for page templates and clone them into the page
+      if (pageData.componentKey && pageData.pageName) {
+        // Get the component from the Tools library by component.key
+        const component = await figma.importComponentByKeyAsync(pageData.componentKey)
+        const clonedComponent: InstanceNode = component.createInstance() as InstanceNode
 
-  //   return frame
+        // Add the template to the page
+        page.insertChild(0, clonedComponent)
+
+        // Detach instance, keep the tree clean
+        clonedComponent.detachInstance()
+
+        // Zoom to fit the template in view
+        figma.viewport.scrollAndZoomIntoView([clonedComponent])
+      }
+    })
+
+    figma.notify(`[${numKeys}] Page${numKeys > 1 ? 's' : ''} created!`)
+  } else {
+    figma.notify('No pages created...Select at least one from the list.')
+  }
 }
