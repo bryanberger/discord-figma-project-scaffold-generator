@@ -1,5 +1,5 @@
 {
-	"name": "figma-plugin-react-template",
+	"name": "discord-figma-project-scaffold",
 	"version": "1.0.0",
 	"description": "This plugin template uses Typescript. If you are familiar with Javascript, Typescript will look very familiar. In fact, valid Javascript code is already valid Typescript code.",
 	"license": "ISC",
@@ -9,11 +9,12 @@
 		"prettier:format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,json}' "
 	},
 	"dependencies": {
+		"figma-plugin-ds": "^1.0.1",
 		"react": "^17.0.1",
 		"react-dom": "^17.0.1"
 	},
 	"devDependencies": {
-		"@figma/plugin-typings": "^1.19.0",
+		"@figma/plugin-typings": "^1.24.0",
 		"@types/react": "^17.0.0",
 		"@types/react-dom": "^17.0.0",
 		"css-loader": "^5.0.1",

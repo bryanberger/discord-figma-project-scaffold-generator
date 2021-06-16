@@ -1,5 +1,5 @@
 {
-  "name": "Figma Plugin Template",
+  "name": "Discord Figma Project Scaffold 2.0",
   "id": "00000000",
   "api": "1.0.0",
   "main": "dist/code.js",
