@@ -2,7 +2,7 @@
 
 This plugin allows for a flexible way to create consistent file structure that is easy to digest by various stakeholders.
 
-![prototype](.github/banner.png?raw=true)
+![banner](.github/banner.png?raw=true)
 
 ## Why?
 
