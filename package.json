@@ -3,6 +3,9 @@
 	"version": "1.0.0",
 	"description": "This plugin allows for a flexible way to create consistent file structure that is easy to digest by various stakeholders.",
 	"license": "ISC",
+	"author": {
+		"name": "Bryan Berger"
+	},
 	"scripts": {
 		"build": "webpack --mode=production",
 		"build:watch": "webpack --mode=development --watch",

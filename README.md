@@ -2,6 +2,8 @@
 
 This plugin allows for a flexible way to create consistent file structure that is easy to digest by various stakeholders.
 
+![prototype](.github/banner.png?raw=true)
+
 ## Why?
 
 To improve consistency across the team but also offer flexibility in the creative process. This plugins allows a designer to opt-in to generating a page structure suitable for the project at hand.
