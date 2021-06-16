@@ -8,12 +8,12 @@ To improve consistency across the team but also offer flexibility in the creativ
 
 ## How to use
 
-- Ensure your project includes the `Tools - Design File Template` from the `Design System` Figma project.
+- Ensure your project includes the `Tools - Design File Template` from the `Design System` Figma project (it should be default).
 - Run the plugin, select the page templates you want to generate.
 
 ## How to update
 
-#### Add/Remove Pages
+#### 1. Add/Remove Pages
 
 See `src/constants.ts`
 
@@ -26,7 +26,7 @@ Simply add a new index to the `PAGES` object and fill in the relevant properties
 | **description**                | A brief description of the page. This is used as the checkbox hover `title` in the plugin UI.                                                                    | string |
 | **displayPageName** (optional) | An optional "pretty" display name for the page in Figma.                                                                                                         | string |
 
-### Update Templates
+### 2. Update Templates
 
 The pages that are generated are based off of template pages in the `Tools - Design File Template` file in the `Design System` Figma project. These page templates can be updated to however the team see's fit. Upon next use of the plugin, it will reference and generate from the latest updated template.
 
