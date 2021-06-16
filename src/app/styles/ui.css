@@ -15,12 +15,14 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
 .button-container button {
   flex: 1;
   width: 100%;
   margin-right: 0.25rem;
   justify-content: center;
 }
+
 .button-container button:last-child {
   margin-right: 0;
 }
