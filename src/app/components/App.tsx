@@ -13,7 +13,7 @@ const App: React.FC = ({}) => {
     const keys = Array.from(selectedCheckboxes)
     parent.postMessage({pluginMessage: {type: 'create-pages', keys}}, '*')
 
-    // Reset checkboex
+    // Reset checkboxes
     setSelectedCheckboxes(new Set())
   }
 
