@@ -27,7 +27,7 @@ export const PAGES: PAGES_TYPE = {
     pageName: '--------------------', // 20 dashes
     componentKey: null,
     description: 'A blank divider page.',
-    displayPageName: 'Divider',
+    displayPageName: '➗ Divider',
   },
   components: {
     pageName: '⚙️ Components',
