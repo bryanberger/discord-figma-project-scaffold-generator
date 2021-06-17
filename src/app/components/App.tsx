@@ -12,6 +12,9 @@ const App: React.FC = ({}) => {
     // We use a `Set` to make it easier to de-dupe selected checkboxes, but postMessage expects a array/object
     const keys = Array.from(selectedCheckboxes)
     parent.postMessage({pluginMessage: {type: 'create-pages', keys}}, '*')
+
+    // Reset checkboex
+    setSelectedCheckboxes(new Set())
   }
 
   const onCancel = () => {
