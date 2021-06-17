@@ -41,8 +41,9 @@ export const PAGES: PAGES_TYPE = {
   },
   'art-school': {
     pageName: 'Art School',
-    componentKey: null,
-    description: '',
+    componentKey: '47dfc07842b0061f6d186e5d1ee483079989e87d',
+    description:
+      'For Art School Requests, a dedicated page to act as a playground for Art School to see how their work fits into the project.',
   },
   research: {
     pageName: '🔬 Research',

@@ -10,7 +10,7 @@ To improve consistency across the team but also offer flexibility in the creativ
 
 ## How to use
 
-- Ensure your project includes the `Tools - Design File Template` from the `Design System` Figma project (it should be default).
+- Ensure your project includes the `Tools - Design File Template` from the `Design System` Figma project (it should be accessible by default).
 - Run the plugin, select the page templates you want to generate.
 
 ## How to update
@@ -30,7 +30,7 @@ Simply add a new index to the `PAGES` object and fill in the relevant properties
 
 ### 2. Update Templates
 
-The pages that are generated are based off of template pages in the `Tools - Design File Template` file in the `Design System` Figma project. These page templates can be updated to however the team see's fit. Upon next use of the plugin, it will reference and generate from the latest updated template.
+The pages that are generated are based off of template pages in the `Tools - Design File Template` file in the `Design System` Figma project. These page templates can be updated to however the team see's fit, remember to publish when done. Upon next use of the plugin, it will reference and generate from the latest updated template.
 
 ## Development
 
