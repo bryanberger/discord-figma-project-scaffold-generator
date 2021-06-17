@@ -21,17 +21,24 @@ const createPages = async (msg: any) => {
       // Check for page templates and clone them into the page
       if (pageData.componentKey && pageData.pageName) {
         // Get the component from the Tools library by component.key
-        const component = await figma.importComponentByKeyAsync(pageData.componentKey)
-        const clonedComponent: InstanceNode = component.createInstance() as InstanceNode
+        const template = await figma.importComponentByKeyAsync(pageData.componentKey)
+        const templateInstance: InstanceNode = template.createInstance() as InstanceNode
 
         // Add the template to the page
-        page.insertChild(0, clonedComponent)
+        page.insertChild(0, templateInstance)
 
         // Detach instance, keep the tree clean
-        clonedComponent.detachInstance()
+        templateInstance.detachInstance()
 
         // Zoom to fit the template in view
-        figma.viewport.scrollAndZoomIntoView([clonedComponent])
+        figma.viewport.scrollAndZoomIntoView([templateInstance])
+
+        // Re-get the templateInstance
+        const frameRef = page.children[0] as InstanceNode // it should be the first and only node
+        frameRef.children.forEach((child) => frameRef.parent.appendChild(child))
+
+        // Remove the tmp frameRef
+        frameRef.remove()
       }
     })
 
