@@ -8,6 +8,12 @@ import '../styles/ui.css'
 const App: React.FC = ({}) => {
   const [selectedCheckboxes, setSelectedCheckboxes] = React.useState(new Set())
 
+  // Generate/cache a Set where all checkboxes are selected
+  const allSelected = new Set()
+  Object.keys(PAGES).map((key) => {
+    allSelected.add(key)
+  })
+
   const onCreate = () => {
     // We use a `Set` to make it easier to de-dupe selected checkboxes, but postMessage expects a array/object
     const keys = Array.from(selectedCheckboxes)
@@ -37,6 +43,14 @@ const App: React.FC = ({}) => {
     }
   }
 
+  const onSelectAll = () => {
+    setSelectedCheckboxes(allSelected)
+  }
+
+  const onUnselectAll = () => {
+    setSelectedCheckboxes(new Set())
+  }
+
   const createCheckbox = (key: string) => {
     const pageData = PAGES[key]
     return (
@@ -59,6 +73,14 @@ const App: React.FC = ({}) => {
 
   return (
     <div className="container">
+      <div className="top-container">
+        <button className="button button--tertiary mr-xxsmall" onClick={onSelectAll} disabled={selectedCheckboxes.size === allSelected.size}>
+          Select All
+        </button>
+        <button className="button button--tertiary" onClick={onUnselectAll} disabled={selectedCheckboxes.size === 0}>
+          Unselect All
+        </button>
+      </div>
       <div className="checkbox-container">{createCheckboxes()}</div>
       <div className="button-container">
         <button className="button button--primary" onClick={onCreate} disabled={selectedCheckboxes.size === 0}>
