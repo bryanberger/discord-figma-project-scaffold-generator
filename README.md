@@ -1,14 +1,11 @@
 # Project Scaffold Generator
 
-This plugin allows for a flexible way to create consistent file structure that is easy to digest by various stakeholders.
-
 ![banner](.github/banner.png?raw=true)
 ![demo](.github/demo.gif?raw=true)
 
 ## Why?
 
-To improve consistency across the team but also offer flexibility in the creative process. This plugins allows a designer to opt-in to generating a page structure suitable for the project at hand.
-
+This plugin aims to improve consistency across the team by generating a starting page structure and templates to work from. It offers flexibility in the creative process by allowing a designer to opt-in to generating a structure suitable for the project at hand.
 ## How to use
 
 - Ensure your project includes the `Tools - Design File Template` from the `Design System` Figma project (it should be accessible by default).
