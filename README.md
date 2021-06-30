@@ -3,6 +3,7 @@
 This plugin allows for a flexible way to create consistent file structure that is easy to digest by various stakeholders.
 
 ![banner](.github/banner.png?raw=true)
+![demo](.github/demo.gif?raw=true)
 
 ## Why?
 
