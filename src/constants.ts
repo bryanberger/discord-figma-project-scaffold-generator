@@ -61,3 +61,33 @@ export const PAGES: PAGES_TYPE = {
     description: '',
   },
 }
+
+export const OTHER: PAGES_TYPE = {
+  componentProposal: {
+
+    pageName: 'Component Proposal',
+    componentKey: 'f45674f25b1e7bce7ebf39a8f6223958125b69f9',
+    description:
+      'Used when proposing a new component to the Design System. This generates a page in your file with the base template for submitting an idea.',
+  },
+}
+
+// Should coorespond to the lowercase name of each object above, this just keeps things simple
+export const TABS = ['pages', 'other']
+
+// Generate cached "all selected" sets for each tab/category
+export const ALL_SELECTED_PAGES = new Set()
+Object.keys(PAGES).map((key) => {
+  ALL_SELECTED_PAGES.add(key)
+})
+
+
+export const ALL_SELECTED_OTHER = new Set()
+Object.keys(OTHER).map((key) => {
+  ALL_SELECTED_OTHER.add(key)
+
+})
+
+// Quick way to get items per tab
+export const getNewTabItems = (newTab: string) => newTab === 'pages' ? PAGES : OTHER
+export const getAllSelectedForNewTab = (newTab: string) => newTab === 'pages' ? ALL_SELECTED_PAGES : ALL_SELECTED_OTHER

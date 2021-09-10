@@ -1,9 +1,14 @@
+.page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .container {
   padding: 1rem;
   height: 100%;
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .checkbox-container {
@@ -27,10 +32,42 @@
   margin-right: 0;
 }
 
-.top-container {
+.actions {
   margin-top: -0.5rem;
+  margin-bottom: 0.25rem;
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  /* justify-content: center; */
+}
+
+.tabs {
+  display: flex;
+  padding: 0.25rem 1rem;
+  border-bottom: 1px solid var(--silver);
+}
+
+.tabs button {
+  font-size: var(--font-size-small);
+  color: var(--black8-opaque);
+}
+
+/* Ceeky hack to get sentance case */
+.tabs button span::first-letter {
+  text-transform: uppercase;
+}
+
+.tabs button:enabled:focus {
+  text-decoration: none;
+}
+
+.tabs button.active {
+  font-weight: var(--font-weight-bold);
+  color: var(--black);
+}
+
+/* Figma DS Overrides */
+.checkbox__label {
+  padding: 0;
+  margin-left: 0;
 }
