@@ -1,6 +1,6 @@
 {
 	"name": "discord-figma-project-scaffold-generator",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "This plugin allows for a flexible way to create consistent file structure that is easy to digest by various stakeholders.",
 	"license": "ISC",
 	"author": {

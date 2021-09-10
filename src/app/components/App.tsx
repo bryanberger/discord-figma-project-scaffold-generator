@@ -1,23 +1,26 @@
 import * as React from 'react'
 
-import {PAGES} from '../../constants'
+import {PAGES, TABS, 
+  getNewTabItems, getAllSelectedForNewTab} from '../../constants'
 
 import 'figma-plugin-ds/dist/figma-plugin-ds.css'
 import '../styles/ui.css'
 
 const App: React.FC = ({}) => {
   const [selectedCheckboxes, setSelectedCheckboxes] = React.useState(new Set())
+  const [selectedTab, setSelectedTab] = React.useState(TABS[0]) // Starts on "Pages"
+  const [selectedTabItems, setSelectedTabItems] = React.useState(PAGES) // Get associated tab items for that tab
+  const [allSelected, setAllSelected] = React.useState(new Set())
 
-  // Generate/cache a Set where all checkboxes are selected
-  const allSelected = new Set()
-  Object.keys(PAGES).map((key) => {
-    allSelected.add(key)
-  })
+  // Kick-off the tab state on-mount
+  React.useEffect(() => {
+    changeTabs(selectedTab)
+  }, [])
 
   const onCreate = () => {
     // We use a `Set` to make it easier to de-dupe selected checkboxes, but postMessage expects a array/object
     const keys = Array.from(selectedCheckboxes)
-    parent.postMessage({pluginMessage: {type: 'create-pages', keys}}, '*')
+    parent.postMessage({pluginMessage: {type: 'create-pages', keys, selectedTab}}, '*')
 
     // Reset checkboxes
     setSelectedCheckboxes(new Set())
@@ -52,7 +55,7 @@ const App: React.FC = ({}) => {
   }
 
   const createCheckbox = (key: string) => {
-    const pageData = PAGES[key]
+    const pageData = selectedTabItems[key]
     return (
       <div className="checkbox" key={key} title={pageData.description}>
         <input
@@ -69,26 +72,60 @@ const App: React.FC = ({}) => {
     )
   }
 
-  const createCheckboxes = () => Object.keys(PAGES).map(createCheckbox)
+  const changeTabs = (newTab: string) => {
+    const newTabItems = getNewTabItems(newTab)
+
+    // Reset checkboxes
+    onUnselectAll()
+
+    // Set tab to active
+    setSelectedTab(newTab)
+    setSelectedTabItems(newTabItems)
+
+    // Reset allSelected cache
+    setAllSelected(getAllSelectedForNewTab(newTab))
+  }
+
+  const createCheckboxes = () => {
+    return Object.keys(selectedTabItems).map(createCheckbox)
+  }
 
   return (
-    <div className="container">
-      <div className="top-container">
-        <button className="button button--tertiary mr-xxsmall" onClick={onSelectAll} disabled={selectedCheckboxes.size === allSelected.size}>
-          Select All
-        </button>
-        <button className="button button--tertiary" onClick={onUnselectAll} disabled={selectedCheckboxes.size === 0}>
-          Unselect All
-        </button>
+    <div className="page">
+      <div className="tabs">
+        {TABS.map((tab) => (
+          <button
+            key={tab}
+            className={`button button--tertiary mr-xsmall ${selectedTab === tab ? 'active' : ''}`}
+            onClick={() => changeTabs(tab)}
+          >
+            <span>{tab}</span>
+          </button>
+        ))}
       </div>
-      <div className="checkbox-container">{createCheckboxes()}</div>
-      <div className="button-container">
-        <button className="button button--primary" onClick={onCreate} disabled={selectedCheckboxes.size === 0}>
-          Generate
-        </button>
-        <button className="button button--secondary" onClick={onCancel}>
-          Cancel
-        </button>
+
+      <div className="container">
+        <div className="actions">
+          <button
+            className="button button--tertiary mr-xxsmall"
+            onClick={onSelectAll}
+            disabled={selectedCheckboxes.size === allSelected.size}
+          >
+            Select All
+          </button>
+          <button className="button button--tertiary" onClick={onUnselectAll} disabled={selectedCheckboxes.size === 0}>
+            Unselect All
+          </button>
+        </div>
+        <div className="checkbox-container">{createCheckboxes()}</div>
+        <div className="button-container">
+          <button className="button button--primary" onClick={onCreate} disabled={selectedCheckboxes.size === 0}>
+            Generate
+          </button>
+          <button className="button button--secondary" onClick={onCancel}>
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   )

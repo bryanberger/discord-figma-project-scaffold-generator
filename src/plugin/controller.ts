@@ -1,6 +1,6 @@
-import {PAGES} from '../constants'
+import {getNewTabItems} from '../constants'
 
-figma.showUI(__html__, {width: 300, height: 400})
+figma.showUI(__html__, {width: 300, height: 440})
 
 figma.ui.onmessage = async (msg) => {
   if (msg.type === 'create-pages') createPages(msg)
@@ -8,11 +8,14 @@ figma.ui.onmessage = async (msg) => {
 }
 
 const createPages = async (msg: any) => {
+  const selectedTab = msg.selectedTab
   const numKeys = msg.keys.length
+
+  console.log(msg)
 
   if (numKeys > 0) {
     msg.keys.map(async (key: string) => {
-      const pageData = PAGES[key]
+      const pageData = getNewTabItems(selectedTab)[key]
 
       // Create page
       const page = figma.createPage()
