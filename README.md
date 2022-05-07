@@ -31,7 +31,7 @@ Simply add a new index to the `PAGES` object and fill in the relevant properties
 
 ### 2. Update Templates
 
-The pages that are generated are based off of template pages in the `Tools - Design File Template` file in the `Design System` Figma project. These page templates can be updated to however the team see's fit, remember to publish when done. Upon next use of the plugin, it will reference and generate from the latest updated template.
+The pages that are generated are based off of template pages in the library you created (`Tools - Design File Template` here at Discord). These page templates can be updated to however the team see's fit, remember to publish when done. Upon next use of the plugin, it will reference and generate from the latest updated template.
 
 ## Development
 
