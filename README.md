@@ -6,9 +6,12 @@
 ## Why?
 
 This plugin aims to improve consistency across the team by generating a starting page structure and templates to work from. It offers flexibility in the creative process by allowing a designer to opt-in to generating a structure suitable for the project at hand.
+
 ## How to use
 
-- Ensure your project includes the `Tools - Design File Template` from the `Design System` Figma project (it should be accessible by default).
+- Create a new Figma file, make it a library.
+- Add `master` components for each page template. You are basically creating a template layout and making the entire thing 1 master component (so it easily be inserted into a new project file).
+- Enable this library by default for all of your current/future projects. This ensures the templates are accessible to insert anywhere in your org. At Discord we have a file called `Tools - Design File Template` that resides in the `Design System` team. It's important that the file is accessible and not "private" or "hidden" in any way.
 - Run the plugin, select the page templates you want to generate.
 
 ## How to update
@@ -36,6 +39,6 @@ The pages that are generated are based off of template pages in the `Tools - Des
 - Run `yarn build:watch` to start webpack in watch mode.
 - Open `Figma` -> `Plugins` -> `Development` -> `New Plugin...` and choose `manifest.json` file from this repo.
 
-
 ## Build
+
 - Run `yarn build` to build a production version.
